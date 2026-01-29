@@ -6,10 +6,9 @@ def conectar():
             host="localhost",
             user="root",
             password="Pilates28",
-            database="verano1_db"
+            database="seguros"
         )
         if conexion.is_connected():
-           
            return conexion
     except mysql.connector.Error as fallo:
         print (f"Error de conexion {fallo}")
