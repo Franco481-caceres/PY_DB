@@ -14,8 +14,22 @@ class TestDIrecciones(unittest.TestCase):
         dir_prueba= Direccion("Calle Cliente", "1234", "Zona Norte")
         gestor.guardar_direccion(dir_prueba)
         self.assertIsNotNone(dir_prueba.direccion_id)
-        
+    
+    def test_Leer_Direcciones(self):
+        gestor=GestorDB()
+        dir_prueba= Direccion("Calle Cliente", "1234", "Zona Norte")
+        gestor.guardar_direccion(dir_prueba)
 
+        """Aca deberia ir un input"""
+        direccion_solicitada= dir_prueba.direccion_id
+        direccion_devuelta=gestor.leer_direccion(direccion_solicitada)
+        direccion_devuelta_objeto=Direccion(direccion_devuelta[1],direccion_devuelta[2],direccion_devuelta[3],)
+        direccion_devuelta_objeto.direccion_id=direccion_devuelta[0]
+        self.assertEqual(direccion_devuelta_objeto.direccion_id, direccion_solicitada)
+        self.assertEqual(direccion_devuelta_objeto.calle, dir_prueba.calle)
+        self.assertEqual(direccion_devuelta_objeto.cp, dir_prueba.cp)
+        self.assertEqual(direccion_devuelta_objeto.municipio, dir_prueba.municipio)
+        
 class TestClientes(unittest.TestCase):
     def test_Guardar_Clientes(self):
         gestor=GestorDB()

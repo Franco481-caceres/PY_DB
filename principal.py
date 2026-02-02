@@ -23,6 +23,8 @@ class GestorDB:
         self.db=conexion()
     
     
+    #Metodos relacionados a las DIRECCIONES
+
     def guardar_direccion(self,direccion_nueva:Direccion):
         conn=self.db.conectar()
         cursor=conn.cursor()
@@ -35,7 +37,23 @@ class GestorDB:
         print(f"Nueva direccion creada su id es {nuevo_id}")
         cursor.close()
         self.db.desconectar()
-    
+    """"Lo que hace el metodo leer direccion es devolver una tupla y mediante indice le indico al objeto que columna de la tabla
+    va en cada atributo.
+    primero en el constructor le paso indicie 1,2,3 y despues de la creacion le paso el id mediante objeto.direccion_id=tupla[0]"""
+    def leer_direccion(self,direccion_solicitada):
+        conexion_tabla=self.db.conectar()
+        cursor=conexion_tabla.cursor()
+        sql="Select * From direcciones where direccion_id=%s"
+        
+        cursor.execute(sql,(direccion_solicitada,))
+        direccion_db=cursor.fetchone()
+        
+        print(f"SU direccion {direccion_db}")
+        cursor.close()
+        self.db.desconectar()
+        return direccion_db
+    # Metodos relacionados a los CLIENTES
+
     def guardar_cliente(self,cliente_nuevo:Cliente):
         conexion_tabla=self.db.conectar()
         cursor=conexion_tabla.cursor()
@@ -48,6 +66,3 @@ class GestorDB:
         print(f"Se agrego el cliente a la base de datos, su id es: {cliente_nuevo.cliente_id}")
         cursor.close()
         self.db.desconectar()
-
-
-    
