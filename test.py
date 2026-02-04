@@ -38,5 +38,23 @@ class TestClientes(unittest.TestCase):
         cliente_prueba=Cliente("Juan", "Perez", "1990-01-01", "123456", dir_aux)
         gestor.guardar_cliente(cliente_prueba)
         self.assertIsNotNone(cliente_prueba.cliente_id)
+
+    def test_Leer_Clientes(self):
+        gestor=GestorDB()
+        dir_aux= Direccion("Calle Cliente", "1234", "Zona Norte")
+        gestor.guardar_direccion(dir_aux)
+        Cliente_prueba=Cliente("Juan", "Perez", "1990-01-01", "123456", dir_aux)
+        gestor.guardar_cliente(Cliente_prueba)
+        Cliente_solicitado=Cliente_prueba.cliente_id
+        cliente_devuelto=gestor.leer_cliente(Cliente_solicitado)
+        direccion_recuperada=gestor.leer_direccion(cliente_devuelto[5])
+        direccion_recuperada_aux=Direccion(direccion_recuperada[1],direccion_recuperada[2],direccion_recuperada[3])
+        direccion_recuperada_aux.direccion_id=direccion_recuperada[0]
+        cliente_objeto=Cliente(cliente_devuelto[1],cliente_devuelto[2],cliente_devuelto[3],cliente_devuelto[4],direccion_recuperada_aux)
+        cliente_objeto.cliente_id=cliente_devuelto[0]
+        self.assertIsNotNone(cliente_objeto.cliente_id)
+        self.assertEqual(Cliente_prueba.nombre,cliente_objeto.nombre)
+        self.assertEqual(Cliente_prueba.direccion_id,cliente_objeto.direccion_id)
+        self.assertEqual(cliente_objeto.direccion_id,dir_aux.direccion_id)
 if __name__=="__main__":
     unittest.main()

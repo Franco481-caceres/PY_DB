@@ -52,6 +52,8 @@ class GestorDB:
         cursor.close()
         self.db.desconectar()
         return direccion_db
+    
+    
     # Metodos relacionados a los CLIENTES
 
     def guardar_cliente(self,cliente_nuevo:Cliente):
@@ -66,3 +68,15 @@ class GestorDB:
         print(f"Se agrego el cliente a la base de datos, su id es: {cliente_nuevo.cliente_id}")
         cursor.close()
         self.db.desconectar()
+
+    def leer_cliente(self,cliente_solicitado):
+        conexion_tabla=self.db.conectar()
+        cursor=conexion_tabla.cursor()
+        sql="Select * from clientes where cliente_id = %s"
+        valores=(cliente_solicitado,)
+        cursor.execute(sql,valores)
+        cliente_db=cursor.fetchone()
+        print(f"Su cliente es : {cliente_db}")
+        cursor.close()
+        self.db.desconectar()
+        return cliente_db
