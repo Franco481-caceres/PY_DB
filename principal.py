@@ -31,7 +31,6 @@ class Auto:
 class GestorDB:
     def __init__(self):
         self.db=conexion()
-    
     #Metodos relacionados a las DIRECCIONES
 
     def guardar_direccion(self,direccion_nueva:Direccion):
@@ -90,3 +89,5 @@ class GestorDB:
         self.db.desconectar()
         return cliente_db
     
+        #METODOS RELACIONADOS AL AUTO  
+    def guardar_auto(self,auto_nuevo:Auto):
