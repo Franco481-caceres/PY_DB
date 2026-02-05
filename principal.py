@@ -7,7 +7,6 @@ class Direccion:
         self.cp=cp
         self.municipio=municipio
         
-
 class Cliente:
     def __init__ (self,nombre,apellido,fecha_nacimiento,nro_licencia,direccion:Direccion):
         self.cliente_id=None
@@ -16,12 +15,22 @@ class Cliente:
         self.fecha_nacimiento=fecha_nacimiento
         self.nro_licencia=nro_licencia
         self.direccion_id=direccion.direccion_id
+    
+class Auto:
+    def __init__ (self,patente,chasis_id,motor_id,marca,modelo,tipo,color,cliente:Cliente):
+        self.patente=patente
+        self.chasis_id=chasis_id
+        self.motor_id=motor_id
+        self.marca=marca
+        self.modelo=modelo
+        self.tipo=tipo
+        self.color=color
+        self.cliente_id=cliente.cliente_id
 
 
 class GestorDB:
     def __init__(self):
         self.db=conexion()
-    
     
     #Metodos relacionados a las DIRECCIONES
 
@@ -80,3 +89,4 @@ class GestorDB:
         cursor.close()
         self.db.desconectar()
         return cliente_db
+    
