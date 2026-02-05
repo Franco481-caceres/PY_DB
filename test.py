@@ -67,6 +67,8 @@ class TestAutos(unittest.TestCase):
         gestor.guardar_cliente(cliente_aux)
         Auto_prueba=Auto("AF123JK","9BWZZZ3112","EA888","Volkswagen","Golf","Hatchback","Gris Carbono",cliente_aux)
         gestor.guardar_auto(Auto_prueba)
+        self.assertEqual(Auto_prueba.cliente_id,cliente_aux.cliente_id)
+        self.assertEqual(Auto_prueba.patente,"AF123JK")
 
 if __name__=="__main__":
     unittest.main()

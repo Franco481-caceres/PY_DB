@@ -91,3 +91,10 @@ class GestorDB:
     
         #METODOS RELACIONADOS AL AUTO  
     def guardar_auto(self,auto_nuevo:Auto):
+        conexion_tabla=self.db.conectar()
+        cursor=conexion_tabla.cursor()
+        sql="Insert into autos (patente,chasis_id,motor_id,marca,modelo,tipo,color,cliente_id) values (%s,%s,%s,%s,%s,%s,%s,%s)"
+        valores=(auto_nuevo.patente,auto_nuevo.chasis_id,auto_nuevo.motor_id,auto_nuevo.marca,auto_nuevo.modelo,auto_nuevo.tipo,auto_nuevo.color,auto_nuevo.cliente_id) 
+        cursor.execute(sql,valores)
+        conexion_tabla.commit()
+        return f"se agrego con exito el auto en la base de datos"
